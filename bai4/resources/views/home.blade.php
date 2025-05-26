@@ -9,7 +9,10 @@
 
     @foreach ($products as $product)
         <div>
-            Tên sản phẩm: {{ $product->name }}
+            Tên sản phẩm:
+            <a href="{{ APP_URL . 'product/' . $product->id }}">{{ $product->name }}</a>
+            <br>
+            Price: {{ $product->price }}
         </div>
         <hr>
     @endforeach

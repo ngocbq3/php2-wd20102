@@ -14,3 +14,14 @@ function view($view, $data = [])
     $blade = new BladeOne($views, $cache, BladeOne::MODE_DEBUG); // MODE_DEBUG allows to pinpoint troubles.
     echo $blade->run($view, $data); // it calls /views/$view.blade.php
 }
+
+/**
+ * Hàm dd: dùng để debug
+ * @param $data: dữ liệu cần bug
+ */
+function dd($data)
+{
+    echo "<pre>";
+    var_dump($data);
+    echo "</pre>";
+}

@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 
 class HomeController
@@ -16,5 +17,16 @@ class HomeController
     public function admin()
     {
         return view('admin.dashboard');
+    }
+
+    public function show($id)
+    {
+        $product = Product::find($id);
+        return view('detail', compact('product'));
+
+        // $products = Category::select(['products.*', 'categories.name'])
+        //     ->join('products', 'category_id')
+        //     ->get();
+        // dd($products);
     }
 }

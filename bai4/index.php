@@ -25,6 +25,8 @@ $router->get('/{id}/posts', function ($id) {
     echo "Post is ID: $id";
 });
 
+$router->get('/product/{id}', HomeController::class . '@show');
+
 
 // Run it!
 $router->run();
