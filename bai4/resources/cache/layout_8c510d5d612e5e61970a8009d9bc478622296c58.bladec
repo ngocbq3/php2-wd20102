@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ <title> <?php echo $this->yieldContent('title'); ?> </title>
+</head>
+
+<body>
+ <nav>
+ MENU
+ </nav>
+
+ <article>
+ <?php echo $this->yieldContent('content'); ?>
+ </article>
+
+ <footer>FOOTER</footer>
+</body>
+
+</html>

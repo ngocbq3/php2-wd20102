@@ -1,0 +1,9 @@
+{
+  "name": "bqngoc/bai3",
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    }
+  }
+}
