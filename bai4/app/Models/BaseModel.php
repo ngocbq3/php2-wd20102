@@ -74,7 +74,7 @@ class BaseModel
         return $this;
     }
     /**
-     * @method get: phương thức thực thi lệnh SQL select
+     * @method get: phương thức thực thi lệnh SQL select và lấy kết quả
      */
     public function get()
     {
@@ -82,5 +82,88 @@ class BaseModel
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_CLASS);
         return $result;
+    }
+
+    /**
+     * @method orderBy: phương thức sắp xếp
+     * @param $name: tên cột muốn sắp xếp
+     * @param $sort: sắp xếp
+     */
+    public function orderBy($name, $sort = 'ASC')
+    {
+        $this->sqlBuilder .= " ORDER BY $name $sort";
+        return $this;
+    }
+    /**
+     * @method limit: phương thức hạn chế số bản ghi cần lấy
+     * @param $limit: số lượng bản ghi
+     */
+    public function limit($limit = 10)
+    {
+        $this->sqlBuilder .= " LIMIT $limit";
+        return $this;
+    }
+
+    /**
+     * @method where: điều kiện
+     * @param $column: tên cột
+     * @param $operater: toán tử so sánh
+     * @param $value: giá trị
+     */
+    public function where($column, $operater, $value)
+    {
+        $this->sqlBuilder .= " WHERE $column $operater '$value'";
+        return $this;
+    }
+
+    /**
+     * @method andWhere: thêm điều kiện AND
+     * @param $column: tên cột
+     * @param $operater: toán tử so sánh
+     * @param $value: giá trị
+     */
+    public function andWhere($column, $operater, $value)
+    {
+        $this->sqlBuilder .= " AND  $column $operater '$value'";
+        return $this;
+    }
+
+    /**
+     * @method orWhere: thêm điều kiện OR
+     * @param $column: tên cột
+     * @param $operater: toán tử so sánh
+     * @param $value: giá trị
+     */
+    public function orWhere($column, $operater, $value)
+    {
+        $this->sqlBuilder .= " OR  $column $operater '$value'";
+        return $this;
+    }
+
+    /**
+     * @method create: thêm dữ liệu
+     * @param @data: data là mảng dữ liệu gồm có key: columnName và value
+     */
+    public static function create($data)
+    {
+        $model = new static;
+        $sql = "INSERT INTO $model->table(";
+        $columnNames = ""; //Danh sách các cột
+        $params = ""; //Danh sách các tham số
+
+        foreach ($data as $key => $value) {
+            $columnNames .= " `{$key}`, ";
+            $params .= " :{$key}, ";
+        }
+
+
+        //Xóa dấu , ở cuối các chuỗi $columnNames và $params
+        $columnNames = rtrim($columnNames, ', ');
+        $params = rtrim($params, ', ');
+        $sql .= $columnNames . ') VALUES (' . $params . ')';
+
+        $stmt = $model->conn->prepare($sql);
+        $stmt->execute($data);
+        return $model->conn->lastInsertId(); //Lấy ra id mới thêm
     }
 }
