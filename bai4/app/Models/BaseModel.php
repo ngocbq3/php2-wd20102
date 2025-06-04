@@ -147,20 +147,12 @@ class BaseModel
     public static function create($data)
     {
         $model = new static;
-        $sql = "INSERT INTO $model->table(";
-        $columnNames = ""; //Danh sách các cột
-        $params = ""; //Danh sách các tham số
 
-        foreach ($data as $key => $value) {
-            $columnNames .= " `{$key}`, ";
-            $params .= " :{$key}, ";
-        }
+        $columns = array_keys($data); //Lấy key của mảng $data
+        $columnNames = " `" . implode("`, `", $columns) . "` "; //Danh sách các cột
+        $params = " :" . implode(", :", $columns); //Danh sách các tham số
 
-
-        //Xóa dấu , ở cuối các chuỗi $columnNames và $params
-        $columnNames = rtrim($columnNames, ', ');
-        $params = rtrim($params, ', ');
-        $sql .= $columnNames . ') VALUES (' . $params . ')';
+        $sql = "INSERT INTO $model->table( {$columnNames} ) VALUES ( {$params} )";
 
         $stmt = $model->conn->prepare($sql);
         $stmt->execute($data);
@@ -187,5 +179,17 @@ class BaseModel
         //Thêm $id vào mảng
         $data["$model->primaryKey"] = $id;
         $stmt->execute($data);
+    }
+
+    /**
+     * @method delete: xóa bản ghi theo id
+     * @param $id: giá trị của khóa chính
+     */
+    public static function delete($id)
+    {
+        $model = new static;
+        $sql = "DELETE FROM {$model->table} WHERE {$model->primaryKey} = :{$model->primaryKey}";
+        $stmt = $model->conn->prepare($sql);
+        $stmt->execute(["{$model->primaryKey}" => $id]);
     }
 }

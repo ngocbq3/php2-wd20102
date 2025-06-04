@@ -30,5 +30,6 @@ $router->get('/product/{id}', HomeController::class . '@show');
 $router->get('/products', ProductController::class . "@index");
 $router->get('/products/store', ProductController::class . "@store");
 $router->get('/products/update', ProductController::class . "@update");
+$router->get('/products/delete', ProductController::class . "@destroy");
 // Run it!
 $router->run();
