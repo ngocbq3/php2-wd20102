@@ -25,3 +25,9 @@ function dd($data)
     var_dump($data);
     echo "</pre>";
 }
+
+//Hàm route
+function route($route)
+{
+    return APP_URL . $route;
+}
