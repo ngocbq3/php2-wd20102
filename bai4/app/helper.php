@@ -26,8 +26,15 @@ function dd($data)
     echo "</pre>";
 }
 
-//Hàm route
-function route($route)
+//Hàm route để lấy đường dẫn
+function route($route, $param = '')
 {
-    return APP_URL . $route;
+    $param = $param ? '/' . $param : '';
+    return APP_URL . $route . $param;
+}
+
+//Hàm redirect để điều hướng website
+function redirect($path)
+{
+    header("location: " . APP_URL . $path);
 }

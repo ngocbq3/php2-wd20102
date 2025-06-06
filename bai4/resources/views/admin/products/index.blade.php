@@ -15,7 +15,7 @@
                     <th scope="col">Price</th>
                     <th scope="col">Category Name</th>
                     <th scope="col">
-                        <a href="{{ route('products/create') }}" class="btn btn-primary">Create</a>
+                        <a href="{{ route('admin/products/create') }}" class="btn btn-primary">Create</a>
                     </th>
                 </tr>
             </thead>
@@ -30,7 +30,12 @@
                         <td>{{ $pro->price }}</td>
                         <td>{{ $pro->cate_name }}</td>
                         <td>
-                            Sửa / Xóa
+                            Sửa /
+
+                            <form action="{{ route('admin/products', $pro->id) }}" method="post">
+                                <button type="submit" class="btn btn-danger"
+                                    onclick="return confirm('Bạn có muốn xóa không')">Delete</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
