@@ -6,6 +6,11 @@
 
 @section('content')
     <div class="container">
+        @if ($message != '')
+            <div class="alert alert-success">
+                {{ $message }}
+            </div>
+        @endif
         <form action="{{ route('admin/products/edit/' . $product->id) }}" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label">Name</label>
@@ -40,7 +45,7 @@
                 <textarea name="description" rows="10" class="form-control">{{ $product->description }}</textarea>
             </div>
             <div class="mb-3">
-                <button type="submit" class="btn btn-primary">Create</button>
+                <button type="submit" class="btn btn-primary">Update</button>
                 <a href="{{ route('admin/products') }}" class="btn btn-primary">List</a>
             </div>
         </form>

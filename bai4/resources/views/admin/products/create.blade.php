@@ -9,7 +9,10 @@
         <form action="" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label">Name</label>
-                <input type="text" name="name" class="form-control">
+                <input type="text" name="name" value="{{ $product['name'] ?? '' }}" class="form-control">
+                @isset($errors['name'])
+                    <span class="text-danger">{{ $errors['name'] }}</span>
+                @endisset
             </div>
             <div class="mb-3">
                 <label class="form-label">Image</label>
@@ -27,7 +30,11 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Price</label>
-                <input type="number" name="price" step="0.1" class="form-control">
+                <input type="number" name="price" value="{{ $product['price'] ?? '' }}" step="0.1"
+                    class="form-control">
+                @isset($errors['price'])
+                    <span class="text-danger">{{ $errors['price'] }}</span>
+                @endisset
             </div>
             <div class="mb-3">
                 <label class="form-label">Stock</label>

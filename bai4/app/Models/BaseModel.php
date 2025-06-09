@@ -174,7 +174,6 @@ class BaseModel
         //Xóa dấu , ở cuối chuỗi
         $sql = rtrim($sql, ', ');
         $sql .= " WHERE {$model->primaryKey}=:{$model->primaryKey}";
-
         $stmt = $model->conn->prepare($sql);
         //Thêm $id vào mảng
         $data["$model->primaryKey"] = $id;
@@ -190,6 +189,7 @@ class BaseModel
         $model = new static;
         $sql = "DELETE FROM {$model->table} WHERE {$model->primaryKey} = :{$model->primaryKey}";
         $stmt = $model->conn->prepare($sql);
+
         $stmt->execute(["{$model->primaryKey}" => $id]);
     }
 }

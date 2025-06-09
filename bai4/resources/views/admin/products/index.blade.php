@@ -32,7 +32,7 @@
                         <td>
                             <a href="{{ route('admin/products/edit/' . $pro->id) }}" class="btn btn-primary">Edit</a>
 
-                            <form class="d-inline" action="{{ route('admin/products', $pro->id) }}" method="post">
+                            <form class="d-inline" action="{{ route('admin/products/delete', $pro->id) }}" method="post">
                                 <button type="submit" class="btn btn-danger"
                                     onclick="return confirm('Bạn có muốn xóa không')">Delete</button>
                             </form>
