@@ -30,9 +30,9 @@
                         <td>{{ $pro->price }}</td>
                         <td>{{ $pro->cate_name }}</td>
                         <td>
-                            Sửa /
+                            <a href="{{ route('admin/products/edit/' . $pro->id) }}" class="btn btn-primary">Edit</a>
 
-                            <form action="{{ route('admin/products', $pro->id) }}" method="post">
+                            <form class="d-inline" action="{{ route('admin/products', $pro->id) }}" method="post">
                                 <button type="submit" class="btn btn-danger"
                                     onclick="return confirm('Bạn có muốn xóa không')">Delete</button>
                             </form>
