@@ -1,5 +1,6 @@
 <?php
 
+use App\Controllers\AuthController;
 use App\Controllers\HomeController;
 use App\Controllers\ProductController;
 
@@ -23,3 +24,17 @@ $router->get('/products', ProductController::class . "@index");
 $router->get('/products/store', ProductController::class . "@store");
 $router->get('/products/update', ProductController::class . "@update");
 $router->get('/products/delete', ProductController::class . "@destroy");
+
+$router->set404(function () {
+    header('HTTP/1.1 404 Not Found');
+    echo "404 not found";
+});
+
+//Login & register
+$router->get('/auth/login', AuthController::class . "@login");
+$router->post('/auth/login', AuthController::class . "@postLogin");
+$router->get('/auth/register', AuthController::class . "@register");
+$router->post('/auth/register', AuthController::class . "@postRegister");
+
+//Logout
+$router->get('/auth/logout', AuthController::class . "@logout");

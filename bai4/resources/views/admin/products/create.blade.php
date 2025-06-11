@@ -17,12 +17,19 @@
             <div class="mb-3">
                 <label class="form-label">Image</label>
                 <input type="file" name="image" class="form-control">
+                @isset($errors['image'])
+                    <span class="text-danger">{{ $errors['image'] }}</span>
+                @endisset
             </div>
             <div class="mb-3">
                 <label class="form-label">Category Name</label>
                 <select name="category_id" id="" class="form-control">
                     @foreach ($categories as $cate)
-                        <option value="{{ $cate->id }}">
+                        <option value="{{ $cate->id }}" 
+                            @isset($product['category_id'])
+                                @selected($cate->id == $product['category_id'])
+                            @endisset
+                            >
                             {{ $cate->name }}
                         </option>
                     @endforeach
@@ -38,11 +45,11 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Stock</label>
-                <input type="number" name="stock" class="form-control">
+                <input type="number" name="stock" class="form-control" value="{{ $product['stock'] ?? '' }}">
             </div>
             <div class="mb-3">
                 <label class="form-label">Description</label>
-                <textarea name="description" rows="10" class="form-control"></textarea>
+                <textarea name="description" rows="10" class="form-control">{{ $product['description'] ?? '' }}</textarea>
             </div>
             <div class="mb-3">
                 <button type="submit" class="btn btn-primary">Create</button>

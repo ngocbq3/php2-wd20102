@@ -37,4 +37,5 @@ function route($route, $param = '')
 function redirect($path)
 {
     header("location: " . APP_URL . $path);
+    die;
 }

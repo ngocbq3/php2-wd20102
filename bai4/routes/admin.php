@@ -11,3 +11,13 @@ $router->mount('/admin', function () use ($router) {
     $router->get('/products/edit/{id}', ProductController::class . "@edit"); //form
     $router->post('/products/edit/{id}', ProductController::class . "@update"); //update
 });
+
+$router->before('GET|POST', '/admin.*', function () {
+    if (!isset($_SESSION['user'])) {
+        redirect('auth/login');
+    } else {
+        if ($_SESSION['user']->role != 'admin') {
+            redirect('');
+        }
+    }
+});

@@ -35,14 +35,25 @@ class ProductController
             $errors['price'] = "Giá cần nhập số nguyên dương";
         }
 
+
         //Xử lý ảnh
         $file = $_FILES['image'];
         if ($file['size'] > 0) {
             $image = "images/" . $file['name']; //đường dẫn ảnh
-            move_uploaded_file($file['tmp_name'], $image); //upload ảnh
 
-            //đưa ảnh vào mảng
-            $product['image'] = $image;
+            //Validate image
+            $imgs = ['jpg', 'jpeg', 'gif', 'png']; //quy đinh các ảnh được phép
+            //Lấy đuôi mở rộng của file
+            $img_ext = pathinfo($image, PATHINFO_EXTENSION);
+            //Nếu đuổi mở rộng nằm trong mảng thì cho phép upload
+            if (in_array($img_ext, $imgs)) {
+                move_uploaded_file($file['tmp_name'], $image); //upload ảnh
+    
+                //đưa ảnh vào mảng
+                $product['image'] = $image;
+            } else {
+                $errors['image'] = "Ảnh không đúng định dạng";
+            }
         }
         //Trường hợp có lỗi khi validate
         if ($errors) {

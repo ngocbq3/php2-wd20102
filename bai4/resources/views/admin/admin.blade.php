@@ -12,6 +12,11 @@
 <body>
     <header>
         Header
+
+        @isset($_SESSION['user'])
+            <strong>{{ $_SESSION['user']->name }}</strong>
+            <a href="{{ route('auth/logout') }}">Logout</a>
+        @endisset
     </header>
 
     @yield('content')
